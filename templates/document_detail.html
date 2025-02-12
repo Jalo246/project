@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ document.doc_name }}</h2>
+    <p><strong>From:</strong> {{ document.sender.username }}</p>
+    <p><strong>To:</strong> {{ document.receiver.username }}</p>
+    <p><strong>Description:</strong> {{ document.description }}</p>
+    <p><strong>Urgent:</strong> {{ document.is_urgent|yesno:"Yes,No" }}</p>
+    <p><strong>Sent On:</strong> {{ document.timestamp }}</p>
+    <p>
+        <strong>Status:</strong>
+        {% if document.is_received %}
+            <span class="badge badge-success">Received</span>
+        {% else %}
+            <span class="badge badge-warning">Pending</span>
+        {% endif %}
+    </p>
+    {% if document.file %}
+        <p><a href="{{ document.file.url }}">Download File</a></p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Send a Document</h3>
+    </div>
+    <div class="card-body">
+        <form action="{% url 'send_document' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Document Name:</label>
+                <input type="text" class="form-control" name="doc_name" required>
+            </div>
+            <div class="form-group">
+                <label>Select Receiver:</label>
+                <select class="form-control" name="receiver" required>
+                    {% for user in users %}
+                    <option value="{{ user.id }}">{{ user.username }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Upload Document (Optional):</label>
+                <input type="file" class="form-control" name="document_file">
+            </div>
+            <div class="form-group">
+                <label>Description:</label>
+                <textarea class="form-control" name="description" required></textarea>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" name="is_urgent">
+                <label class="form-check-label">Mark as Urgent</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

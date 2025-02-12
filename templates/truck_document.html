@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Track Documents</h2>
+    <form method="get" class="form-inline mb-3">
+        <input type="text" name="q" class="form-control mr-2" placeholder="Search documents">
+        <button type="submit" class="btn btn-secondary">Search</button>
+    </form>
+
+    <h3>Received Documents</h3>
+    {% for doc in received_documents %}
+        <div class="card mb-2">
+            <div class="card-body">
+                <h5 class="card-title">{{ doc.doc_name }}</h5>
+                <p class="card-text">From: {{ doc.sender.username }}</p>
+                <p class="card-text">
+                    Status:
+                    {% if doc.is_received %}
+                        <span class="badge badge-success">Received</span>
+                    {% else %}
+                        <span class="badge badge-warning">Pending</span>
+                    {% endif %}
+                </p>
+                {% if doc.file %}
+                    <p>
+                        <a href="{{ doc.file.url }}" class="btn btn-info" download>Download File</a>
+                    </p>
+                {% endif %}
+                <a href="{% url 'document_detail' doc.id %}" class="btn btn-primary">View Details</a>
+            </div>
+        </div>
+    {% empty %}
+        <p>No received documents found.</p>
+    {% endfor %}
+
+    <h3>Sent Documents</h3>
+    {% for doc in sent_documents %}
+        <div class="card mb-2">
+            <div class="card-body">
+                <h5 class="card-title">{{ doc.doc_name }}</h5>
+                <p class="card-text">To: {{ doc.receiver.username }}</p>
+                <p class="card-text">
+                    {% if doc.is_sent %}
+                        <span class="badge badge-info">Sent</span>
+                    {% endif %}
+                </p>
+                {% if doc.file %}
+                    <p>
+                        <a href="{{ doc.file.url }}" class="btn btn-info" download>Download File</a>
+                    </p>
+                {% endif %}
+                <a href="{% url 'document_detail' doc.id %}" class="btn btn-primary">View Details</a>
+            </div>
+        </div>
+    {% empty %}
+        <p>No sent documents found.</p>
+    {% endfor %}
+</div>
+{% endblock %}
