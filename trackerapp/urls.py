@@ -13,6 +13,9 @@ urlpatterns = [
     path('track_documents/', views.track_documents, name='track_documents'),
     path('document/<int:document_id>/', views.document_detail, name='document_detail'),
     path('register/', views.register, name='register'),
+    path('support/', views.support, name='support'),
+    path('statistics/', views.statistics, name='statistics'),
+    path('settings/', views.account_settings, name='settings'),
 ]
 
 if settings.DEBUG:  # Only do this in development!

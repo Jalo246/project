@@ -7,49 +7,297 @@
     <!-- AdminLTE CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --accent-color: #f39c12;
+            --success-color: #2ecc71;
+            --danger-color: #e74c3c;
+            --light-gray: #f8f9fa;
+            --dark-gray: #343a40;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Main Header and Navbar Styling */
+        .main-header {
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .navbar-light .navbar-nav .nav-link {
+            color: var(--dark-gray);
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .navbar-light .navbar-nav .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        /* Sidebar Styling */
+        .main-sidebar {
+            background: linear-gradient(180deg, var(--dark-gray) 0%, #2c3e50 100%);
+        }
+
+        .sidebar .nav-link {
+            border-radius: 5px;
+            margin: 5px 10px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: rgba(255,255,255,0.1);
+            transform: translateX(5px);
+        }
+
+        .sidebar .nav-link.active {
+            background-color: var(--primary-color);
+        }
+
+        .brand-link {
+            border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+            text-align: center;
+            padding: 15px 0 !important;
+        }
+
+        .brand-text {
+            font-weight: 600 !important;
+            font-size: 1.25rem;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* Welcome Message */
         .welcome-message {
-            font-size: 24px;
-            font-weight: bold;
-            color: #007bff;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--dark-gray);
+            padding: 1.5rem 0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .welcome-message:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+            bottom: 15px;
+            left: 0;
+        }
+
+        /* Content Wrapper */
+        .content-wrapper {
+            background-color: var(--light-gray);
+        }
+
+        .content-header {
+            padding: 20px 0;
+        }
+
+        /* Cards Styling */
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            border: none;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .card-header {
+            background-color: white;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            font-weight: 600;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            border-radius: 5px;
+            font-weight: 500;
+            padding: 8px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        /* Footer */
+        .main-footer {
+            background-color: white;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+            padding: 1rem;
+        }
+
+        /* Notification Badge */
+        #notification-icon {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        #notification-icon:hover {
+            color: var(--primary-color);
+        }
+
+        #notification-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--danger-color);
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 10px;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease;
+        }
+
+        #notification-icon:hover #notification-count {
+            transform: scale(1.1);
+        }
+
+        /* User Dropdown */
+        .dropdown-menu {
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: none;
+            padding: 10px 0;
+        }
+
+        .dropdown-item {
+            color: var(--dark-gray);
+            font-weight: 500;
+            padding: 8px 15px;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--light-gray);
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        /* Alerts */
+        .alert {
+            border-radius: 8px;
+            border: none;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .alert-dismissible .close {
+            padding: 0.5rem 1rem;
+        }
+
+        /* Animation for new items */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .welcome-message {
+                font-size: 1.5rem;
+            }
+
+            .welcome-message:after {
+                width: 40px;
+            }
+
+            .content-header, .content {
+                padding: 15px;
+            }
         }
     </style>
 </head>
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
+
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <ul class="navbar-nav">
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{% url 'home' %}" class="nav-link">Home</a>
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{% url 'login' %}" class="nav-link">Login</a>
+                    <a href="{% url 'home' %}" class="nav-link"><i class="fas fa-home mr-1"></i> Home</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{% url 'login' %}" class="nav-link"><i class="fas fa-sign-in-alt mr-1"></i> Login</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
+                <!-- Notification Icon -->
+                <li class="nav-item mr-3">
+                    <a class="nav-link" id="notification-icon" href="#" data-toggle="tooltip" title="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span id="notification-count">0</span>
+                    </a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="fas fa-user"></i>
+                        <i class="fas fa-user-circle" style="font-size: 1.2rem;"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <a href="#" class="dropdown-item">Profile</a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-user mr-2 text-primary"></i> Profile
+                        </a>
                         <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">Settings</a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-cog mr-2 text-secondary"></i> Settings
+                        </a>
                         <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">Logout</a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-sign-out-alt mr-2 text-danger"></i> Logout
+                        </a>
                     </div>
                 </li>
             </ul>
         </nav>
+
         <!-- Sidebar -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <a href="#" class="brand-link">
+                <i class="fas fa-file-alt mr-2"></i>
                 <span class="brand-text font-weight-light">DTS Dashboard</span>
             </a>
             <div class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                        <i class="fas fa-user-circle fa-2x text-white"></i>
+                    </div>
+                    <div class="info">
+                        <!-- Dynamically display the logged-in user's username -->
+                        <a href="#" class="d-block">{{ user.username }}</a>
+                    </div>
+                </div>
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" role="menu">
+                    <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
                         <li class="nav-item">
                             <a href="{% url 'send_document' %}" class="nav-link">
                                 <i class="nav-icon fas fa-file-upload"></i>
@@ -62,30 +310,231 @@
                                 <p>Track Documents</p>
                             </a>
                         </li>
+                        <li class="nav-header">REPORTS</li>
+                        <li class="nav-item">
+                            <a href="{% url 'statistics' %}" class="nav-link">
+                                <i class="nav-icon fas fa-chart-bar"></i>
+                                <p>Statistics</p>
+                            </a>
+                        </li>
+                        <li class="nav-header">HELP</li>
+                        <li class="nav-item">
+                            <a href="{% url 'support' %}" class="nav-link">
+                                <i class="nav-icon fas fa-question-circle"></i>
+                                <p>Support</p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>
         </aside>
+
         <!-- Content Wrapper -->
         <div class="content-wrapper">
             <div class="content-header">
                 <div class="container-fluid">
-                    <h1 class="m-0 text-dark welcome-message">Welcome to the Document Tracking System</h1>
+                    <div class="row mb-2">
+                        <div class="col-sm-12">
+                            <h1 class="welcome-message">Welcome to the Document Tracking System</h1>
+                        </div>
+                    </div>
                 </div>
             </div>
             <section class="content">
                 <div class="container-fluid">
-                    {% block content %}{% endblock %}
+                    {% if messages %}
+                        <div class="container mt-3">
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show fade-in" role="alert">
+                                    <i class="fas {% if message.tags == 'success' %}fa-check-circle{% elif message.tags == 'warning' %}fa-exclamation-triangle{% elif message.tags == 'danger' %}fa-times-circle{% else %}fa-info-circle{% endif %} mr-2"></i>
+                                    {{ message }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <!-- Quick Stats Row -->
+                    <div class="row fade-in">
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-info">
+                                <div class="inner">
+                                    <h3>{{ new_documents }}</h3>
+                                    <p>New Documents</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                               <a href="{% url 'track_documents' %}?filter=new" class="small-box-footer">
+                                    More info <i class="fas fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-success">
+                                <div class="inner">
+                                    <h3>{{ processed_documents }}</h3>
+                                    <p>Processed Documents</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <a href="{% url 'track_documents' %}?filter=processed" class="small-box-footer">
+                                    More info <i class="fas fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-warning">
+                                <div class="inner">
+                                    <h3>{{ pending_documents }}</h3>
+                                    <p>Pending Documents</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <a href="{% url 'track_documents' %}?filter=pending" class="small-box-footer">
+                                    More info <i class="fas fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-danger">
+                                <div class="inner">
+                                    <h3>{{ rejected_documents }}</h3>
+                                    <p>Rejected Documents</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-times-circle"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">
+                                    More info <i class="fas fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Block -->
+                    <div class="fade-in">
+                        {% block content %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">
+                                            <i class="fas fa-file-upload mr-2"></i>
+                                            Quick Send
+                                        </h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Use this feature to quickly send documents for processing.</p>
+                                        <a href="{% url 'send_document' %}" class="btn btn-primary">
+                                            <i class="fas fa-paper-plane mr-1"></i> Send Document
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">
+                                            <i class="fas fa-search mr-2"></i>
+                                            Document Tracking
+                                        </h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Check the status of your previously sent documents.</p>
+                                        <a href="{% url 'track_documents' %}" class="btn btn-primary">
+                                            <i class="fas fa-search mr-1"></i> Track Documents
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endblock %}
+                    </div>
                 </div>
             </section>
         </div>
+
         <!-- Footer -->
         <footer class="main-footer">
+            <div class="float-right d-none d-sm-inline">
+                <a href="#" class="text-secondary mr-2">Privacy Policy</a> |
+                <a href="#" class="text-secondary ml-2">Terms of Service</a>
+            </div>
             <strong>&copy; 2025 Document Tracking System.</strong> All rights reserved.
         </footer>
+
     </div>
+
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+            setTimeout(function() {
+                document.querySelectorAll('.fade-in').forEach(element => {
+                    element.classList.add('animated');
+                });
+            }, 100);
+        });
+    </script>
+    <!-- WebSocket Notification Script -->
+    <script>
+        const wsScheme = window.location.protocol === "https:" ? "wss" : "ws";
+        let notificationsSocket = new WebSocket(wsScheme + '://' + window.location.host + '/ws/notifications/');
+
+        notificationsSocket.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            let notificationCountElem = document.getElementById("notification-count");
+            let count = parseInt(notificationCountElem.innerText);
+            notificationCountElem.innerText = count + 1;
+
+            const toast = document.createElement('div');
+            toast.className = 'toast fade-in';
+            toast.style.position = 'fixed';
+            toast.style.top = '20px';
+            toast.style.right = '20px';
+            toast.style.minWidth = '300px';
+            toast.style.zIndex = '9999';
+            toast.style.backgroundColor = 'white';
+            toast.style.borderRadius = '8px';
+            toast.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+
+            toast.innerHTML = `
+                <div class="toast-header">
+                    <i class="fas fa-bell text-warning mr-2"></i>
+                    <strong class="mr-auto">New Notification</strong>
+                    <small>Just now</small>
+                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                </div>
+                <div class="toast-body">
+                    ${data.message}
+                </div>
+            `;
+
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '1';
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 500);
+                }, 5000);
+            }, 100);
+        };
+
+        notificationsSocket.onclose = function(e) {
+            console.error('Notification socket closed unexpectedly');
+            setTimeout(function() {
+                notificationsSocket = new WebSocket(wsScheme + '://' + window.location.host + '/ws/notifications/');
+            }, 5000);
+        };
+    </script>
 </body>
 </html>
